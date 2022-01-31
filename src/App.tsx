@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { HomeIntro } from './pages';
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Route path="/" component={HomeIntro} />
-    </BrowserRouter>
+    <Router>
+      <Route path="/" element={<HomeIntro />} />
+    </Router>
   );
 };
 
