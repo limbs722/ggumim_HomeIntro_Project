@@ -17,8 +17,8 @@ class HttpUtil {
       const data: object = !params ? {} : { params: params };
 
       return axios({ ...body, ...data })
-        .then((res) => res)
-        .catch((err) => err.response);
+        .then(res => res)
+        .catch(err => err.response);
     }
 
     return await getApi(args.url, args.params, args.method);
