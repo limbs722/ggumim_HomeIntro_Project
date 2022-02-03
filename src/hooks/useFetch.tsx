@@ -2,22 +2,26 @@ import { useEffect, useState } from 'react';
 import { HttpUtil } from '../utils';
 
 interface FetchProps {
-  params: {
-    url: string;
-    method: 'GET';
-    params?: object;
-  };
+  url: string;
+  method?: string;
+  params?: object;
 }
 
-function useFetch({ params }: FetchProps) {
-  const [requestParams, setRequestParams] = useState(params);
+type responseProps = {
+  imageUrl: string;
+  productList: Array<any>;
+};
+
+function useFetch(args: FetchProps) {
+  const [requestParams, setRequestParams] = useState(args);
   const [isFetching, setIsFetching] = useState(false);
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState<responseProps>();
 
   useEffect(() => {
     const getData = async () => {
       const res = await HttpUtil.requestApi(requestParams);
       let msg: string = '';
+      console.log(res);
 
       if (res.status !== 200) {
         msg =
@@ -27,7 +31,10 @@ function useFetch({ params }: FetchProps) {
         return;
       }
 
-      setResponse(res.data);
+      setResponse({
+        imageUrl: res.data.imageUrl,
+        productList: res.data.productList,
+      });
     };
     getData();
   }, [requestParams]);
